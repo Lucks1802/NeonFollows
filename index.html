@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Neón - Servicios Digitales</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ========================================================================= -->
+    <!-- 🎛️ SECCIÓN 100% PERSONALIZABLE (EDITÁ SOLO LO QUE ESTÁ ACÁ ADENTRO)       -->
+    <!-- ========================================================================= -->
+    <script id="config-block">
+        let CONFIG_MAESTRA = {
+            // 🏷️ IDENTIDAD Y TEXTOS DE LA MARCA
+            marcaParte1: "NEON",
+            marcaParte2: "BOOST",
+            tituloPrincipal: "Potenciá tus Redes al",
+            tituloDestacado: "Máximo",
+            subtitulo: "Seleccioná tu plataforma, elegí el servicio y calculá tu pedido al instante de forma rápida y segura.",
+            estadoSistema: "Sistemas Online • Entrega Rápida",
+            footerTexto: "© 2026 NeonBoost. Todos los derechos reservados.",
+
+            // 🎨 TEMA DE COLORES NEÓN (Podés cambiar los códigos Hex)
+            colorPrimarioNeon: "#00f3ff",   // Cian eléctrico
+            colorSecundarioNeon: "#ff007f", // Fucsia / Rosa neón
+            colorFondo: "#06060b",          // Negro profundo
+
+            // 📱 WHATSAPP Y MONEDA
+            whatsappNumber: "5491100000000", // Formato: 549 + código de área + número sin 15
+            currencySymbol: "$",
+
+            // 🎁 DESCUENTOS POR CANTIDAD
+            descuentoMinimoUnidades: 5000,   // A partir de cuántas unidades aplica el descuento
+            descuentoPorcentaje: 20,         // Porcentaje de descuento (Ej: 20 = 20% OFF)
+
+            // 🌐 PLATAFORMAS, SERVICIOS Y PRECIOS (basePrice = precio por cada 1 unidad)
+            plataformas: {
+                instagram: {
+                    nombre: "Instagram",
+                    icono: "fa-brands fa-instagram",
+                    colorIcono: "#ec4899",
+                    servicios: {
+                        seguidores: { nombre: "Seguidores Reales", precioUnitario: 1.5, min: 100, max: 15000, salto: 100, inicial: 1000 },
+                        likes:      { nombre: "Likes / Me gusta",  precioUnitario: 0.6, min: 50,  max: 10000, salto: 50,  inicial: 500 },
+                        vistas:     { nombre: "Vistas Reels",      precioUnitario: 0.2, min: 500, max: 50000, salto: 500, inicial: 2000 }
+                    }
+                },
+                tiktok: {
+                    nombre: "TikTok",
+                    icono: "fa-brands fa-tiktok",
+                    colorIcono: "#00f3ff",
+                    servicios: {
+                        seguidores: { nombre: "Seguidores TikTok", precioUnitario: 1.8,  min: 100,  max: 15000,  salto: 100,  inicial: 1000 },
+                        likes:      { nombre: "Likes en Videos",   precioUnitario: 0.5,  min: 100,  max: 10000,  salto: 100,  inicial: 1000 },
+                        vistas:     { nombre: "Reproducciones",    precioUnitario: 0.15, min: 1000, max: 100000, salto: 1000, inicial: 5000 }
+                    }
+                },
+                youtube: {
+                    nombre: "YouTube",
+                    icono: "fa-brands fa-youtube",
+                    colorIcono: "#ef4444",
+                    servicios: {
+                        seguidores: { nombre: "Suscriptores",        precioUnitario: 3.5, min: 50,  max: 3000,  salto: 50,  inicial: 200 },
+                        likes:      { nombre: "Likes en Videos",     precioUnitario: 1.2, min: 50,  max: 5000,  salto: 50,  inicial: 200 },
+                        vistas:     { nombre: "Vistas Monetizables", precioUnitario: 0.8, min: 500, max: 30000, salto: 500, inicial: 1000 }
+                    }
+                }
+            }
+        };
+    </script>
+    <!-- ========================================================================= -->
+    <!-- FIN DE LA SECCIÓN PERSONALIZABLE                                          -->
+    <!-- ========================================================================= -->
+
+    <style id="dynamic-styles">
+        :root {
+            --neon-1: #00f3ff;
+            --neon-2: #ff007f;
+            --bg-dark: #06060b;
+        }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg-dark); color: #f3f4f6; }
+        .neon-glow-1 { box-shadow: 0 0 25px color-mix(in srgb, var(--neon-1) 35%, transparent); }
+        .neon-glow-2 { box-shadow: 0 0 25px color-mix(in srgb, var(--neon-2) 35%, transparent); }
+        .neon-text-1 { color: var(--neon-1); text-shadow: 0 0 12px color-mix(in srgb, var(--neon-1) 60%, transparent); }
+        .neon-text-2 { color: var(--neon-2); text-shadow: 0 0 12px color-mix(in srgb, var(--neon-2) 60%, transparent); }
+        .border-neon-1 { border-color: var(--neon-1) !important; }
+        .border-neon-2 { border-color: var(--neon-2) !important; }
+        .bg-neon-1-soft { background-color: color-mix(in srgb, var(--neon-1) 12%, transparent); }
+        .bg-neon-2-soft { background-color: color-mix(in srgb, var(--neon-2) 12%, transparent); }
+        .btn-gradient-neon { background: linear-gradient(90deg, var(--neon-1), var(--neon-2)); }
+        .glass-panel { background: rgba(13, 13, 22, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        input[type="range"].slider-thumb::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--neon-1);
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--neon-1);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"].slider-thumb::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        /* Ocultar flechas de input number */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+
+    <!-- Fondo Digital Ambiental -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div id="ambient-1" class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[130px] opacity-20"></div>
+        <div id="ambient-2" class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[130px] opacity-15"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full py-4 px-6 border-b border-white/10 glass-panel sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl btn-gradient-neon flex items-center justify-center neon-glow-1">
+                    <i class="fa-solid fa-bolt text-black text-lg font-bold"></i>
+                </div>
+                <span class="text-xl font-black tracking-wider uppercase text-white">
+                    <span id="ui-brand-1">NEON</span><span id="ui-brand-2" class="neon-text-1">BOOST</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="ui-status">Sistemas Online</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-4xl w-full mx-auto px-4 py-8 sm:py-12 flex-grow">
+        
+        <!-- Encabezado Hero -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                <span id="ui-title-main">Potenciá tus Redes al</span> 
+                <span id="ui-title-highlight" class="neon-text-1">Máximo</span>
+            </h1>
+            <p id="ui-subtitle" class="text-gray-400 max-w-lg mx-auto text-sm sm:text-base"></p>
+        </div>
+
+        <!-- Caja Principal Interactiva -->
+        <div class="glass-panel rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden border border-white/10">
+            <div class="absolute top-0 left-0 right-0 h-1 btn-gradient-neon"></div>
+
+            <!-- Paso 1: Plataforma -->
+            <div class="mb-8">
+                <label class="block text-xs font-bold uppercase tracking-widest neon-text-1 mb-3">1. Seleccioná la Plataforma</label>
+                <div id="platform-tabs" class="grid grid-cols-3 gap-3"></div>
+            </div>
+
+            <!-- Paso 2: Servicio -->
+            <div class="mb-8">
+                <label class="block text-xs font-bold uppercase tracking-widest neon-text-1 mb-3">2. Elegí el Servicio</label>
+                <div id="service-tabs" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+            </div>
+
+            <!-- Paso 3: Cantidad Interactiva y Link -->
+            <div class="mb-8 bg-black/40 p-5 sm:p-6 rounded-2xl border border-white/5">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+                    <label class="text-xs font-bold uppercase tracking-widest neon-text-1">3. Cantidad Exacta</label>
+                    <div class="flex items-center gap-2 bg-black/70 border border-white/15 rounded-xl px-3 py-1.5 focus-within:border-cyan-400">
+                        <input type="number" id="qty-input" class="w-24 bg-transparent text-right text-xl font-black neon-text-1 font-mono focus:outline-none" value="1000">
+                        <span class="text-xs text-gray-500 font-bold uppercase">unid.</span>
+                    </div>
+                </div>
+                
+                <input type="range" id="qty-range" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer slider-thumb mb-5">
+
+                <!-- Botones Rápidos -->
+                <div id="quick-qty-buttons" class="flex flex-wrap gap-2 mb-6"></div>
+
+                <!-- Input Link -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+                        Link de tu perfil o publicación <span class="neon-text-2">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-500">
+                            <i class="fa-solid fa-link"></i>
+                        </span>
+                        <input type="text" id="target-link" placeholder="Ej: https://instagram.com/tu_usuario o @usuario" class="w-full bg-black/60 border border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 transition text-sm">
+                    </div>
+                    <p id="link-error" class="text-xs text-pink-500 mt-1.5 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i> Ingresá el usuario o link antes de pedir.</p>
+                </div>
+            </div>
+
+            <!-- Totales y Botón WhatsApp -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+                <div class="text-center sm:text-left">
+                    <span class="text-xs text-gray-400 uppercase tracking-wider block mb-1">Total Final</span>
+                    <div class="flex items-center justify-center sm:justify-start gap-3">
+                        <span id="old-price" class="text-lg text-gray-500 line-through font-mono hidden">$0</span>
+                        <span id="total-price" class="text-3xl sm:text-4xl font-black text-white font-mono">$0</span>
+                        <span id="discount-badge" class="text-xs font-bold bg-neon-2-soft neon-text-2 px-2.5 py-1 rounded-full border border-neon-2 hidden"></span>
+                    </div>
+                </div>
+
+                <button onclick="checkoutWhatsApp()" class="w-full sm:w-auto px-8 py-4 rounded-xl btn-gradient-neon text-black font-extrabold uppercase tracking-wider flex items-center justify-center gap-3 hover:opacity-90 transition transform active:scale-95 neon-glow-1 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    Pedir por WhatsApp
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer con acceso al Editor Visual -->
+    <footer class="w-full py-6 px-6 text-xs text-gray-500 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center max-w-5xl mx-auto gap-4">
+        <p id="ui-footer">© 2026 NeonBoost. Todos los derechos reservados.</p>
+        <button onclick="toggleAdminEditor()" title="Abrir Editor de Configuración (Ctrl + E)" class="flex items-center gap-2 text-gray-600 hover:text-cyan-400 transition cursor-pointer">
+            <i class="fa-solid fa-sliders"></i> Personalizar Panel
+        </button>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- 🛠️ MODAL INTERACTIVO DE PERSONALIZACIÓN EN VIVO                           -->
+    <!-- ========================================================================= -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-panel border border-cyan-500/40 rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl my-auto max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center pb-4 border-b border-white/10 mb-6">
+                <div>
+                    <h2 class="text-xl font-black text-white flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i> Editor Interactivo en Vivo
+                    </h2>
+                    <p class="text-xs text-gray-400">Probá cambios en tiempo real y luego copiá el código actualizado para guardarlo en GitHub.</p>
+                </div>
+                <button onclick="toggleAdminEditor()" class="text-gray-400 hover:text-white text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-5 text-sm">
+                <!-- Datos Generales -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Número de WhatsApp (con 549...)</label>
+                        <input type="text" id="edit-wa" class="w-full bg-black/60 border border-white/15 rounded-lg p-2.5 text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Nombre de Marca (Parte 1 / Parte 2)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="edit-brand1" class="w-1/2 bg-black/60 border border-white/15 rounded-lg p-2.5 text-white">
+                            <input type="text" id="edit-brand2" class="w-1/2 bg-black/60 border border-white/15 rounded-lg p-2.5 text-cyan-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colores y Descuentos -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Neón Principal</label>
+                        <input type="color" id="edit-color1" class="w-full h-10 bg-transparent rounded cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Neón Secundario</label>
+                        <input type="color" id="edit-color2" class="w-full h-10 bg-transparent rounded cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Mín. para Descuento</label>
+                        <input type="number" id="edit-disc-min" class="w-full bg-black/60 border border-white/15 rounded-lg p-2 text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">% Descuento</label>
+                        <input type="number" id="edit-disc-pct" class="w-full bg-black/60 border border-white/15 rounded-lg p-2 text-white font-mono">
+                    </div>
+                </div>
+
+                <!-- Precios Rápidos -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-cyan-400 mb-2">Precios Unitarios por Servicio ($ ARS)</label>
+                    <div id="edit-prices-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3 justify-end">
+                    <button onclick="applyLiveEdits()" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold transition cursor-pointer">
+                        <i class="fa-solid fa-eye mr-1"></i> Probar en Pantalla
+                    </button>
+                    <button onclick="copyGeneratedConfig()" class="px-5 py-2.5 rounded-xl btn-gradient-neon text-black font-extrabold transition cursor-pointer">
+                        <i class="fa-solid fa-copy mr-1"></i> Copiar Bloque CONFIG para GitHub
+                    </button>
+                </div>
+                <p id="copy-feedback" class="text-xs text-emerald-400 text-right hidden">¡Copiado! Reemplazá el bloque CONFIG_MAESTRA en tu archivo index.html.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ⚙️ MOTOR DE LA APLICACIÓN (NO NECESITÁS TOCAR NADA DE ACÁ PARA ABAJO)      -->
+    <!-- ========================================================================= -->
+    <script>
+        let currentPlatform = Object.keys(CONFIG_MAESTRA.plataformas)[0];
+        let currentServiceKey = Object.keys(CONFIG_MAESTRA.plataformas[currentPlatform].servicios)[0];
+        let currentQty = 1000;
+
+        function applyVisualConfig() {
+            // Aplicar Colores CSS
+            document.documentElement.style.setProperty('--neon-1', CONFIG_MAESTRA.colorPrimarioNeon);
+            document.documentElement.style.setProperty('--neon-2', CONFIG_MAESTRA.colorSecundarioNeon);
+            document.documentElement.style.setProperty('--bg-dark', CONFIG_MAESTRA.colorFondo);
+            document.getElementById('ambient-1').style.backgroundColor = CONFIG_MAESTRA.colorSecundarioNeon;
+            document.getElementById('ambient-2').style.backgroundColor = CONFIG_MAESTRA.colorPrimarioNeon;
+
+            // Aplicar Textos
+            document.getElementById('ui-brand-1').innerText = CONFIG_MAESTRA.marcaParte1;
+            document.getElementById('ui-brand-2').innerText = CONFIG_MAESTRA.marcaParte2;
+            document.getElementById('ui-title-main').innerText = CONFIG_MAESTRA.tituloPrincipal;
+            document.getElementById('ui-title-highlight').innerText = CONFIG_MAESTRA.tituloDestacado;
+            document.getElementById('ui-subtitle').innerText = CONFIG_MAESTRA.subtitulo;
+            document.getElementById('ui-status')
